@@ -1,7 +1,7 @@
 {
   "name": "react-indiana-drag-scroll",
-  "version": "2.2.0",
-  "description": "Implements scroll on drag",
+  "version": "2.2.1",
+  "description": "Speed added",
   "author": "Norserium",
   "license": "MIT",
   "repository": "norserium/react-indiana-drag-scroll",
