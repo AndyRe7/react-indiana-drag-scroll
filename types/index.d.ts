@@ -24,6 +24,7 @@ export interface ScrollContainerProps {
 	innerRef?: Ref<HTMLElement>;
 	stopPropagation?: boolean;
 	buttons?: number[];
+	speed?: number
 }
 
 export default class ScrollContainer extends Component<ScrollContainerProps> {
