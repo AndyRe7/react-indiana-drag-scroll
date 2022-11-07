@@ -44,6 +44,7 @@ interface Props {
 	innerRef?: Ref<HTMLElement>;
 	stopPropagation?: boolean;
 	buttons?: number[];
+	speed?: number;
 }
 
 export default class ScrollContainer extends PureComponent<Props> {
@@ -57,6 +58,7 @@ export default class ScrollContainer extends PureComponent<Props> {
 		style: {},
 		component: 'div',
 		buttons: [LEFT_BUTTON],
+		speed: 1
 	};
 	container: RefObject<HTMLElement>;
 	scrolling: boolean;
@@ -69,6 +71,7 @@ export default class ScrollContainer extends PureComponent<Props> {
 	scrollTop?: number;
 	clientX?: number;
 	clientY?: number;
+	speed: number;
 
 	constructor(props) {
 		super(props);
@@ -83,7 +86,7 @@ export default class ScrollContainer extends PureComponent<Props> {
 		this.pressed = false;
 		// Is event internal
 		this.internal = false;
-
+		this.speed = props.speed || 1;
 		// Bind callbacks
 		this.getRef = this.getRef.bind(this);
 	}
@@ -201,7 +204,7 @@ export default class ScrollContainer extends PureComponent<Props> {
 		if (this.pressed && (!nativeMobileScroll || !this.isMobile)) {
 			const touch = e.touches[0];
 			if (touch) {
-				this.processMove(e, touch.clientX, touch.clientY);
+				this.processMove(e, this.speed * touch.clientX, this.speed * touch.clientY);
 			}
 			e.preventDefault();
 			if (this.props.stopPropagation) {
@@ -225,7 +228,7 @@ export default class ScrollContainer extends PureComponent<Props> {
 
 	onMouseMove = (e) => {
 		if (this.pressed) {
-			this.processMove(e, e.clientX, e.clientY);
+			this.processMove(e, this.speed * e.clientX, this.speed * e.clientY);
 			e.preventDefault();
 			if (this.props.stopPropagation) {
 				e.stopPropagation();
